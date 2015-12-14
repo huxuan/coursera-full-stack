@@ -26,12 +26,38 @@
 <body>
 
     <div class="container">
-        <div class="row row-content">
+        <div class="row row-content"
+             ng-controller="dishDetailController as ddCtrl"
+             ng-init="dish=ddCtrl.dish">
             <div class="col-xs-12">
-                <p>Put the dish details here</p>
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#">
+                        <img class="media-object img-thumbnail"
+                         ng-src={{dish.image}} alt="Uthappizza">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h2 class="media-heading">{{dish.name}}
+                         <span class="label label-danger">{{dish.label}}</span>
+                         <span class="badge">{{dish.price | currency}}</span></h2>
+                        <p>{{dish.description}}</p>
+                    </div>
+                </div>
             </div>
             <div class="col-xs-9 col-xs-offset-1">
-                <p>Put the comments here</p>
+                <p>
+                    <strong>Customer Comments</strong>
+                    Sort by:
+                    <input type="text" ng-model="dish.orderBy">
+                </p>
+                <ul>
+                    <blockquote ng-repeat="comment in dish.comments | orderBy:dish.orderBy">
+                        <p>{{comment.rating}} Stars</p>
+                        <p>{{comment.comment}}</p>
+                        <footer>{{comment.author}}, {{comment.date | date}}</footer>
+                    </blockquote>
+                </ul>
             </div>
         </div>
 
